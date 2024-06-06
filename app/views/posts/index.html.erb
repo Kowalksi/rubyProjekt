@@ -1,0 +1,65 @@
+<h1>Posts</h1>
+<div class="posts-container">
+  <% @posts.each do |post| %>
+    <div class="post-container">
+      <h2><%= post.title %></h2>
+      <p><%= truncate(post.body, length: 100) %></p>
+      <p class="post-user">Autor: <%= post.user.email %></p>
+      <%= link_to 'Anzeigen', post, class: 'btn btn-secondary' %>
+    </div>
+  <% end %>
+</div>
+
+<style>
+  .posts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .post-container {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 300px;
+  }
+
+  .post-container h2 {
+    font-size: 1.25em;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  .post-container p {
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Change this number to adjust the number of lines */
+    -webkit-box-orient: vertical;
+  }
+
+  .post-user {
+    font-style: italic;
+    margin-top: auto;
+  }
+
+  .btn-secondary {
+    background-color: white;
+    color: #007bff;
+    padding: 10px 15px;
+    text-decoration: none;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .btn-secondary:hover {
+    background-color: #e0e0e0;
+  }
+</style>

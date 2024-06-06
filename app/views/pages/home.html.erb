@@ -1,0 +1,62 @@
+<h1>Ruby on Rails</h1>
+
+<% if current_user %>
+  <p> Hallo <%= current_user.email %>!</p>
+  <p> Du bist [<%= current_user.role %>]</p>
+  <% if current_user.admin? %>
+    Es sind <%= User.count %> Benutzer in dem System. Es befinden sich momentan <%= Post.count %> Post/s im System<br><br>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>E-Mail</th>
+          <th>Rolle</th>
+          <th>Erstellt am</th>
+          <th>Aktionen</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% User.all.each do |user| %>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= user.email %></td>
+            <td><%= user.role %></td>
+            <td><%= user.created_at.strftime("%d.%m.%Y %H:%M") %></td>
+            <td>
+              <%= link_to 'Bearbeiten', edit_user_path(user) %> |
+              <%= link_to 'Löschen', user_path(user), 'data-turbo-method': :delete, data: { confirm: 'Bist du sicher?' } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br><br>
+    <h2>Posts Übersicht</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Titel</th>
+          <th>Inhalt</th>
+          <th>Benutzer</th>
+          <th>Erstellt am</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% Post.all.each do |post| %>
+          <tr id="post-<%= post.id %>">
+            <td><%= post.id %></td>
+            <td><%= post.title %></td>
+            <td><%= truncate(post.body, length: 100) %></td>
+            <td><%= post.user.email %></td>
+            <td><%= post.created_at.strftime("%d.%m.%Y %H:%M") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br><br>
+  <% end %>
+<% else %>
+  <p> Du bist nicht eingeloggt </p>
+<% end %>

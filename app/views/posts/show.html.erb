@@ -1,0 +1,113 @@
+<div class="post-detail-container">
+  <p>
+    <strong class="detail-heading">Titel:</strong>
+    <span class="post-title"><%= @post.title %></span>
+  </p>
+
+  <p>
+    <strong class="detail-heading">Inhalt:</strong>
+    <span class="post-content"><%= @post.body %></span>
+  </p>
+
+  <div class="post-actions">
+    <% if current_user == @post.user %>
+      <%= link_to 'Bearbeiten', edit_post_path(@post), class: 'btn btn-primary' %>
+    <% end %>
+    <%= link_to 'Zurück', posts_path, class: 'btn btn-secondary' %>
+  </div>
+</div>
+
+<style>
+  .post-detail-container {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: auto;
+    background-color: #f9f9f9;
+  }
+
+  .post-detail-container p {
+    margin: 10px 0;
+  }
+
+  .detail-heading {
+    font-size: 1.5em;
+    color: #333;
+  }
+
+  .post-title {
+    display: block;
+    margin-top: 5px;
+    font-size: 1.25em;
+    color: #666;
+  }
+
+  .post-content {
+    display: block;
+    margin-top: 5px;
+    font-size: 1.1em;
+    color: #666;
+  }
+
+  .post-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    flex: 1;
+    margin: 0 5px;
+  }
+
+  .btn-primary {
+    background-color: #007bff !important;
+    color: white !important;
+    border: 2px solid #007bff !important;
+  }
+
+  .btn-primary:hover {
+    background-color: #0056b3 !important;
+  }
+
+  .btn-secondary {
+    background-color: white !important;
+    color: #007bff !important;
+    border: 2px solid #007bff !important;
+  }
+
+  .btn-secondary:hover {
+    background-color: #e0e0e0 !important;
+  }
+
+  .post-actions .btn:first-child {
+    margin-left: 0;
+  }
+
+  .post-actions .btn:last-child {
+    margin-right: 0;
+  }
+
+  .post-actions .btn-single {
+    margin: auto;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const postActions = document.querySelector('.post-actions');
+    const buttons = postActions.querySelectorAll('.btn');
+
+    if (buttons.length === 1) {
+      buttons[0].classList.add('btn-single');
+    }
+  });
+</script>

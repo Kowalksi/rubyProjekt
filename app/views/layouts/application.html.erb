@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RubyProjekt</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+  <link rel="stylesheet" href="https://unpkg.com/simpledotcss@2.0.0/simple-v1.css">
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+<body>
+    <nav>
+      <%= link_to 'Home', root_path %>
+      <% if user_signed_in? %>
+        <%= link_to 'Neuer Post', new_post_path %>
+        <%= link_to 'Alles Posts', posts_path %>
+        <%= link_to 'Ausloggen', destroy_user_session_path, 'data-turbo-method': :delete %>
+      <% else %>
+        <%= link_to 'Einloggen', new_user_session_path %>
+        <%= link_to 'Registrieren', new_user_registration_path %>
+      <% end %>
+    </nav>
+
+    <%= yield %>
+  </body>
+</html>

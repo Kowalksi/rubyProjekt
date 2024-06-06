@@ -1,0 +1,126 @@
+<% if @post.user == current_user %>
+  <h1>Bearbeiten</h1>
+  <%= form_with(model: @post, local: true) do |form| %>
+    <% if @post.errors.any? %>
+      <div id="error_explanation" class="alert alert-danger">
+        <h2><%= pluralize(@post.errors.count, "error") %> Fehlgeschlagen:</h2>
+        <ul>
+          <% @post.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= form.label :titel, class: 'form-label' %>
+      <%= form.text_field :title, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :inhalt, class: 'form-label' %>
+      <%= form.text_area :body, class: 'form-control content-textarea' %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit 'Aktualisiere Post', class: 'btn btn-primary' %>
+      <%= link_to 'Abbrechen', @post, class: 'btn btn-secondary' %>
+      <%= link_to 'Löschen', @post, 'data-turbo-method': :delete, data: { confirm: 'Bist du sicher?' }, class: 'btn btn-danger' %>
+    </div>
+  <% end %>
+<% else %>
+  <h1>Post anzeigen</h1>
+  <%= link_to 'Zurück', posts_path, class: 'btn btn-secondary' %>
+<% end %>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+  }
+
+  h1 {
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+  .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+  }
+
+  .content-textarea {
+    height: 300px; 
+  }
+
+  .alert {
+    padding: 10px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+
+  .actions {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    color: white !important;
+  }
+
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+
+  .btn-secondary {
+    background-color: #6c757d;
+    color: white !important;
+  }
+
+  .btn-secondary:hover {
+    background-color: #5a6268;
+  }
+
+  .btn-danger {
+    background-color: #dc3545;
+    color: white !important;
+  }
+
+  .btn-danger:hover {
+    background-color: #c82333;
+  }
+</style>
